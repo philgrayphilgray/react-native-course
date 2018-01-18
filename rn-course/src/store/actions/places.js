@@ -27,6 +27,6 @@ export const selectPlace = key => {
 
 export const deselectPlace = () => {
   return {
-    type: DELETE_PLACE
+    type: DESELECT_PLACE
   };
 };

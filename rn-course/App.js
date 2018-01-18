@@ -1,10 +1,9 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { Component } from "react";
+import { StyleSheet, View } from "react-native";
 import { connect } from "react-redux";
 
-import ListItem from "./src/components/ListItem/ListItem";
-import PlaceList from "./src/components/PlaceList/PlaceList";
 import PlaceInput from "./src/components/PlaceInput/PlaceInput";
+import PlaceList from "./src/components/PlaceList/PlaceList";
 import PlaceDetail from "./src/components/PlaceDetail/PlaceDetail";
 import {
   addPlace,
@@ -13,25 +12,9 @@ import {
   deselectPlace
 } from "./src/store/actions/index";
 
-class App extends React.Component {
-  state = {
-    placeName: ""
-  };
-  placeNameChangeHandler = val => {
-    this.setState({
-      placeName: val
-    });
-  };
-
-  placeSubmitHandler = placeName => {
-    if (this.state.placeName.trim() === "") {
-      return;
-    }
+class App extends Component {
+  placeAddedHandler = placeName => {
     this.props.onAddPlace(placeName);
-  };
-
-  onItemSelected = key => {
-    this.props.onSelectPlace(key);
   };
 
   placeDeletedHandler = () => {
@@ -42,22 +25,22 @@ class App extends React.Component {
     this.props.onDeselectPlace();
   };
 
+  placeSelectedHandler = key => {
+    this.props.onSelectPlace(key);
+  };
+
   render() {
     return (
       <View style={styles.container}>
         <PlaceDetail
           selectedPlace={this.props.selectedPlace}
-          onItemDelete={this.placeDeletedHandler}
+          onItemDeleted={this.placeDeletedHandler}
           onModalClosed={this.modalClosedHandler}
         />
-        <PlaceInput
-          placeName={this.state.placeName}
-          onChangeText={this.placeNameChangeHandler}
-          onPress={this.placeSubmitHandler}
-        />
+        <PlaceInput onPlaceAdded={this.placeAddedHandler} />
         <PlaceList
           places={this.props.places}
-          onItemSelected={this.onItemSelected}
+          onItemSelected={this.placeSelectedHandler}
         />
       </View>
     );
@@ -85,7 +68,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onAddPlace: name => dispatch(addPlace(name)),
     onDeletePlace: () => dispatch(deletePlace()),
-    onSelectPlace: key => dispatch(selectedPlace(key)),
+    onSelectPlace: key => dispatch(selectPlace(key)),
     onDeselectPlace: () => dispatch(deselectPlace())
   };
 };

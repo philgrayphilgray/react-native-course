@@ -20,7 +20,7 @@ const reducer = (state = initialState, action) => {
           name: action.placeName,
           image: {
             uri:
-              "https://images.unsplash.com/photo-1465188035480-cf3a60801ea5?auto=format&fit=crop&w=2000&q=80"
+              "https://c1.staticflickr.com/5/4096/4744241983_34023bf303_b.jpg"
           }
         })
       };
@@ -48,4 +48,5 @@ const reducer = (state = initialState, action) => {
       return state;
   }
 };
+
 export default reducer;

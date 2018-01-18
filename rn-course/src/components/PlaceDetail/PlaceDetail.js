@@ -3,6 +3,7 @@ import { Modal, View, Image, Text, Button, StyleSheet } from "react-native";
 
 const placeDetail = props => {
   let modalContent = null;
+
   if (props.selectedPlace) {
     modalContent = (
       <View>
@@ -20,7 +21,7 @@ const placeDetail = props => {
       <View style={styles.modalContainer}>
         {modalContent}
         <View>
-          <Button title="Delete" color="red" onPress={props.onItemDelete} />
+          <Button title="Delete" color="red" onPress={props.onItemDeleted} />
           <Button title="Close" onPress={props.onModalClosed} />
         </View>
       </View>
@@ -33,8 +34,8 @@ const styles = StyleSheet.create({
     margin: 22
   },
   placeImage: {
-    height: 200,
-    width: "100%"
+    width: "100%",
+    height: 200
   },
   placeName: {
     fontWeight: "bold",
@@ -42,4 +43,5 @@ const styles = StyleSheet.create({
     fontSize: 28
   }
 });
+
 export default placeDetail;
